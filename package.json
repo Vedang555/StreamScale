@@ -1,0 +1,18 @@
+{
+  "name": "streamscale",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A small distributed video streaming demonstration with round-robin routing.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

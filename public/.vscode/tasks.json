@@ -1,0 +1,84 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run StreamScale scheduler tests",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"--test"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Install StreamScale dependencies",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"install"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Start StreamScale",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"start"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check StreamScale sample media URLs",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"Promise.all(['https://media.w3.org/2010/05/sintel/trailer.mp4','https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4','https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'].map(async url => { try { const r = await fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(10000) }); console.log(r.status, r.headers.get('content-type'), url); } catch (error) { console.log('FAILED', error.message, url); } }))"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Big Buck Bunny sample source",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-I",
+				"-L",
+				"--max-time",
+				"12",
+				"https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Stop StreamScale coordinator",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$serverProcessId = (Get-NetTCPConnection -State Listen -LocalPort 3000).OwningProcess; taskkill.exe /PID $serverProcessId /T /F"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Stop StreamScale worker tree with Node",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const { execFileSync } = require(\"node:child_process\"); const netstat = execFileSync(\"netstat.exe\", [\"-ano\", \"-p\", \"tcp\"], { encoding: \"utf8\" }); const line = netstat.split(/\\r?\\n/).find((entry) => entry.includes(\":3000\") && entry.includes(\"LISTENING\")); if (!line) { console.log(\"StreamScale is already stopped.\"); process.exit(0); } const serverProcessId = line.trim().split(/\\s+/).at(-1); console.log(\"Stopping StreamScale PID \" + serverProcessId); execFileSync(\"taskkill.exe\", [\"/PID\", serverProcessId, \"/T\", \"/F\"], { stdio: \"inherit\" });"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

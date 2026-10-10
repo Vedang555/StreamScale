@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f3ee">
+    <meta name="description" content="An open video library with a live, round-robin streaming route.">
+    <title>StreamScale - Every stream has a route</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="StreamScale home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>stream<span class="brand-light">scale</span></span>
+      </a>
+      <div class="topbar-meta">
+        <span class="live-indicator"><i></i> NETWORK LIVE</span>
+        <span class="edition">DCC LAB <b>01</b></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">A SMALL DISTRIBUTED STREAMING STUDY</p>
+          <h1 id="page-title">Every stream<br><span>has a route.</span></h1>
+        </div>
+        <p class="intro-note">One library. Two edge servers.<br>A new route for every request.</p>
+      </section>
+
+      <section class="watch-layout" aria-label="Video library and player">
+        <div class="watch-column">
+          <div class="player-frame">
+            <video id="player" controls playsinline preload="metadata" aria-label="Selected sample video"></video>
+            <div class="player-corner player-corner-left"><span class="corner-dot"></span> NOW STREAMING</div>
+            <div class="player-corner player-corner-right" id="route-badge">WAITING FOR REQUEST</div>
+          </div>
+          <div class="now-playing">
+            <div>
+              <p class="eyebrow" id="video-category">FEATURED FILM</p>
+              <h2 id="video-title">Choose a film</h2>
+              <p class="video-creator" id="video-creator">Select a title to start a stream.</p>
+            </div>
+            <span class="license-tag" id="video-license">OPEN MEDIA</span>
+          </div>
+          <p class="player-message" id="player-message" role="status" aria-live="polite"></p>
+        </div>
+
+        <aside class="library" aria-labelledby="library-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">THE OPEN LIBRARY</p>
+              <h2 id="library-title">Pick a stream</h2>
+            </div>
+            <span class="library-count" id="library-count">03 TITLES</span>
+          </div>
+          <div class="video-list" id="video-list" aria-live="polite"></div>
+          <p class="library-footnote">Open-license films, routed live.</p>
+        </aside>
+      </section>
+
+      <section class="network-section" aria-labelledby="network-title">
+        <div class="network-heading">
+          <div>
+            <p class="eyebrow">DISTRIBUTED DELIVERY</p>
+            <h2 id="network-title">The network</h2>
+          </div>
+          <p class="network-caption">ROUND-ROBIN SCHEDULER <span aria-hidden="true">/</span> 2 NODES</p>
+        </div>
+
+        <div class="server-grid" id="server-grid" aria-live="polite">
+          <div class="server-skeleton">Checking server health...</div>
+        </div>
+
+        <div class="request-panel">
+          <div class="request-heading">
+            <div>
+              <p class="eyebrow">LIVE TRACE</p>
+              <h3>Recent requests</h3>
+            </div>
+            <span class="trace-label"><span></span> LAST 8</span>
+          </div>
+          <div class="request-list" id="request-list" aria-live="polite">
+            <p class="empty-state">Requests appear here when a video is played.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>STREAMSCALE <span class="footer-dot">/</span> DISTRIBUTED SYSTEMS MINI PROJECT</span>
+      <span>BUILT FOR THE OPEN WEB</span>
+    </footer>
+  </body>
+</html>
